@@ -3,7 +3,7 @@ services:
   - docker #telling travis that we need a service docker which travis will install automatically
 
 before_install: #means series of commands or instructions before we deploy our app or run it production environment
-  - docker build -t usman/docker-react -f Dockerfile.dev .
+  - docker build -t usman/docker-test -f Dockerfile.dev .
 
 # this section contaions all the commands to run our app. TravisCI will watch the output of these commands
 # And if any return code other than 0 means that there is a failure. and Travis will not work
