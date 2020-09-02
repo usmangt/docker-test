@@ -1,4 +1,7 @@
 sudo: required #means that we need super user permissions for our builds.
+
+language: generic
+
 services:
   - docker #telling travis that we need a service docker which travis will install automatically
 
