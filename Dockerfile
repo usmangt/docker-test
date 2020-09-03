@@ -15,6 +15,9 @@ RUN npm run build
 
 FROM nginx
 
+## Exposing the port 80 to get mapped for incomming traffic.
+EXPOSE 80
+
 ## here we are copying from builder phase from our /app/build directly to the ngix ROOT HTML DIR
 COPY --from=builder /app/build /usr/share/nginx/html
 
