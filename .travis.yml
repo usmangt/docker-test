@@ -14,4 +14,32 @@ before_install: #means series of commands or instructions before we deploy our a
 # as it will still fails the TravisCI
 
 scripts:
-  - docker run -e CI=true usman/docker-test npm run test -- --coverage  
+  - docker run -e CI=true usman/docker-test npm run test -- --coverage 
+
+
+deploy:
+  provider: elasticbeanstalk ##Travisci knows list of provider and ebs is one of them
+  region: "us-east-2"  ##Taken from you AWS EBS Server link
+  app: docker-test ##Taken from applications menu
+  env: "DockerTest-env" ##Taken from environment name
+  bucket_name: "elasticbeanstalk-us-east-2-689390931988" ##Taken from S3 list in search
+  bucket_path: "docker-test" ##1st time same as app tag but later need to be found in S3 folder name as per project.
+  on:
+    branch: master
+
+## Next step is to define the access_key_id and secret_key. To do that you need to create a new user in your AWS panel. Search for IAM and select it.
+## Then on left, add a new user and named it anything generic and checkmark PROGRAMTIC ACCESS.
+## The comes the policy page, select "ATTACH EXISTING POLICIES DIRECTLY" and search for "beanstalk".
+## From the list the one which has full ebs access.
+## Lastly on v.last page copy the access_id and secret_key.
+## IMPORTANT NOTE: the secret key is only shown once and after that it is not visible so if you forgot it then you have create  a new user as this user will be useless
+
+## ALSO you will put those key in your Travis-CI repository under settings-> Env. variables
+
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: $AWS_SECRET_KEY
+
+
+ 
